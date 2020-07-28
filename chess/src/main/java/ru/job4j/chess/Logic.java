@@ -3,6 +3,7 @@ package ru.job4j.chess;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -24,13 +25,20 @@ public class Logic {
             throws FigureNotFoundException, ImpossibleMoveException, OccupiedCellException {
         int index = findBy(source);
         Cell[] steps = figures[index].way(source, dest);
-        if (!isFree(steps)) {
-            throw new OccupiedCellException();
+        if (isFree(steps)) {
+            figures[index] = figures[index].copy(dest);
         }
-        figures[index] = figures[index].copy(dest);
+
     }
 
-    private boolean isFree(Cell[] steps) {
+    private boolean isFree(Cell[] steps) throws OccupiedCellException {
+        for (Cell step : steps) {
+            for (Figure figure : figures) {
+                if (figure != null && step.equals(figure.position())) {
+                    throw new OccupiedCellException(step.name() + " occupied by " + figure.getClass());
+                }
+            }
+        }
         return true;
     }
 

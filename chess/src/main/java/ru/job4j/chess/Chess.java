@@ -67,6 +67,18 @@ public class Chess extends Application {
                                 findBy(event.getX(), event.getY()));
                         rect.setX(((int) event.getX() / 40) * 40 + 5);
                         rect.setY(((int) event.getY() / 40) * 40 + 5);
+                    } catch (ImpossibleMoveException e) {
+                        Alert info = new Alert(Alert.AlertType.INFORMATION);
+                        info.setContentText(e.getClass().getName() +  " "  + e.getMessage());
+                        info.show();
+                        rect.setX(((int) momento.getX() / 40) * 40 + 5);
+                        rect.setY(((int) momento.getY() / 40) * 40 + 5);
+                    } catch (OccupiedCellException e) {
+                        Alert info = new Alert(Alert.AlertType.INFORMATION);
+                        info.setContentText(e.getClass().getName() +  " "  + e.getMessage());
+                        info.show();
+                        rect.setX(((int) momento.getX() / 40) * 40 + 5);
+                        rect.setY(((int) momento.getY() / 40) * 40 + 5);
                     } catch (Exception e) {
                         Alert info = new Alert(Alert.AlertType.ERROR);
                         info.setContentText(e.getClass().getName() +  " "  + e.getMessage());
