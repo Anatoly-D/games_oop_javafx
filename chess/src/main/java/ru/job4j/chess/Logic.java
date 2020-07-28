@@ -23,12 +23,14 @@ public class Logic {
 
     public void move(Cell source, Cell dest)
             throws FigureNotFoundException, ImpossibleMoveException, OccupiedCellException {
+        if (source.equals(dest)) {
+            return;
+        }
         int index = findBy(source);
         Cell[] steps = figures[index].way(source, dest);
         if (isFree(steps)) {
             figures[index] = figures[index].copy(dest);
         }
-
     }
 
     private boolean isFree(Cell[] steps) throws OccupiedCellException {
